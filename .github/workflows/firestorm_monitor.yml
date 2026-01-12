@@ -21,20 +21,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
     
-    - name: Load previous data
-      uses: actions/cache@v3
-      with:
-        path: firestorm_products.json
-        key: firestorm-${{ github.run_id }}
-        restore-keys: firestorm-
-    
     - name: Run Firestorm monitor
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       run: python firestorm_monitor.py
-    
-    - name: Save data
-      uses: actions/cache@v3
-      with:
-        path: firestorm_products.json
-        key: firestorm-${{ github.run_id }}
